@@ -1,0 +1,16 @@
+name: "Install NPM token"
+description: "Install npm token for use with the NPM registry"
+inputs:
+  npm-token:
+    description: "NPM token to install"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Install
+      id: install
+      env:
+        NPM_TOKEN: ${{ inputs.npm-token }}
+      run: |
+        echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      shell: bash
